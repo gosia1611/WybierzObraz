@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Wybierz Obraz</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">Kliknij na wybrany obrazek</string>
+    <string name="caption_activity_main">Kliknij na wybrany obrazek.</string>
+    <string name="tekst1">Proszę przeczytać uważnie poniższą instrukcję. \n
+            Na ekranie będą prezentowane pary różnych symboli. \n
+            Jeden z nich jest "szczęśliwy" a drugi "pechowy". \n
+            Na początku nie będziesz wiedzieć, który jest który. \n
+            Wybór "szczęśliwego" symbolu daje większą szansę na nagrodę (napis "\color{blue}Dobrze\color{black}"). \n
+            Czasem powoduje jednak pojawienie się kary (napis "\color{red}Źle\color{black}"). \n
+            Twoim celem jest zebranie jak największej liczby nagród. \n
+            Kliknij OK, aby kontynuować.</string>
+    <string name="tekst2">Szczęśliwy symbol proszę wskazywać klikając na wybrany. \n
+            Wyboru należy dokonywać jak najszybciej (w ciągu 3 sekund) \n
+            Kliknij OK, aby kontynuować.</string>
+    <string name="tekst3">Zbierz jak najwięcej nagród samodzielnie oceniając kolejne prezentowane symbole. \n
+            Kliknij OK, aby kontynuować.</string>      
+	<string name="tekst4">Zanim zaczniemy badanie sprawdzimy czy właściwie rozumiesz podane instrukcje. \n
+    		Wybierz jeden z poniższych symboli.</string>
+   	<string name="tekst5">Świetnie! Niebawem przejdziemy do właściwego badania. \n
+   	    	Kliknij OK, aby kontynuować.</string>
+    <string name="tekst6">Przed prezentacją każdej pary symboli zobaczysz planszę z zielonym kółkiem. \n
+        	Na początek kilka par symboli na próbę. \n
+        	Kliknij OK, aby kontynuować.</string>
+	<string name="tekst7">Świetnie. Teraz rozpocznie się właściwa część badania. \n
+	    	Kliknij OK, aby kontynuować.</string>
+
+</resources>
