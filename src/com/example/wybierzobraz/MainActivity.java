@@ -1,5 +1,6 @@
 package com.example.wybierzobraz;
 
+import com.example.wybierzobraz.Algorithm.Answer;
 import com.example.wybierzobraz.Algorithm.Choise;
 
 import android.app.Activity;
@@ -51,7 +52,9 @@ public class MainActivity extends Activity {
 
 		// 2. Chain together various setter methods to set the dialog
 		// characteristics
-		algorithm.getAnswer(choise);
+		
+		Answer result = algorithm.getResult(choise, 0);
+		if(result.doContinue == true) {
 		builder.setMessage("Wybra³eœ " + choise.toString()).setTitle("Wybrales obraz");
 
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -59,10 +62,11 @@ public class MainActivity extends Activity {
 				showImages();
 			}
 		});
-
+		} else {
+			builder.setMessage("Koniec testu");
+		}
 		// 3. Get the AlertDialog from create()
 		AlertDialog dialog = builder.create();
-
 		dialog.show();
 	}
 
