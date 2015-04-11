@@ -18,6 +18,7 @@ public class MainActivity extends Activity {
 
 	private ImageView img1;
 	private ImageView img2;
+	private ImageView imgGreenCircle;
 	Algorithm algorithm = new Algorithm();
 
 	@Override
@@ -26,8 +27,13 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		init();
-		
-		showImages();
+
+		try {
+			showImages();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void init() {
@@ -44,6 +50,9 @@ public class MainActivity extends Activity {
 				alert(Choise.RIGHT);
 			}
 		});
+		
+		imgGreenCircle = (ImageView) findViewById(R.id.imageView2);
+		imgGreenCircle.setImageResource(R.drawable.green_circle);
 	}
 
 	private void alert(Choise choise) {
@@ -59,7 +68,12 @@ public class MainActivity extends Activity {
 
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
-				showImages();
+				try {
+					showImages();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		} else {
@@ -70,10 +84,16 @@ public class MainActivity extends Activity {
 		dialog.show();
 	}
 
-	private void showImages() {
+	private void showImages() throws InterruptedException {
 		Integer[] images = algorithm.getImages();
+		imgGreenCircle.setVisibility(View.VISIBLE);
+		img1.setVisibility(View.INVISIBLE);
+		img2.setVisibility(View.INVISIBLE);
+		Thread.sleep(3000);
+		imgGreenCircle.setVisibility(View.INVISIBLE);
+		img1.setVisibility(View.VISIBLE);
+		img2.setVisibility(View.VISIBLE);
 		img1.setImageResource(images[0]);
 		img2.setImageResource(images[1]);
 	}
-
 }
