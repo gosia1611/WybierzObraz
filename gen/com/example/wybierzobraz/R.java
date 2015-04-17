@@ -30,22 +30,25 @@ public final class R {
         public static final int e=0x7f020005;
         public static final int f=0x7f020006;
         public static final int g=0x7f020007;
-        public static final int h=0x7f020008;
-        public static final int ha=0x7f020009;
-        public static final int ic_launcher=0x7f02000a;
-        public static final int ic_launcher2=0x7f02000b;
-        public static final int ka=0x7f02000c;
-        public static final int ma=0x7f02000d;
-        public static final int sa=0x7f02000e;
-        public static final int so=0x7f02000f;
+        public static final int green_circle=0x7f020008;
+        public static final int h=0x7f020009;
+        public static final int ha=0x7f02000a;
+        public static final int ic_launcher=0x7f02000b;
+        public static final int ic_launcher2=0x7f02000c;
+        public static final int ka=0x7f02000d;
+        public static final int ma=0x7f02000e;
+        public static final int sa=0x7f02000f;
+        public static final int so=0x7f020010;
     }
     public static final class id {
-        public static final int button_ok=0x7f070005;
+        public static final int RelativeLayout1=0x7f070002;
+        public static final int button_ok=0x7f070007;
         public static final int imageView1=0x7f070003;
-        public static final int imageView2=0x7f070004;
+        public static final int imageView2=0x7f070005;
+        public static final int imageView3=0x7f070004;
         public static final int linearLayout1=0x7f070000;
-        public static final int linearLayout2=0x7f070002;
         public static final int textView1=0x7f070001;
+        public static final int textView2=0x7f070006;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

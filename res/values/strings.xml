@@ -9,8 +9,8 @@
             Na ekranie będą prezentowane pary różnych symboli. \n
             Jeden z nich jest "szczęśliwy" a drugi "pechowy". \n
             Na początku nie będziesz wiedzieć, który jest który. \n
-            Wybór "szczęśliwego" symbolu daje większą szansę na nagrodę (napis "\color{blue}Dobrze\color{black}"). \n
-            Czasem powoduje jednak pojawienie się kary (napis "\color{red}Źle\color{black}"). \n
+            Wybór "szczęśliwego" symbolu daje większą szansę na nagrodę (napis DOBRZE). \n
+            Czasem powoduje jednak pojawienie się kary (napis ŹLE). \n
             Twoim celem jest zebranie jak największej liczby nagród. \n
             Kliknij OK, aby kontynuować.</string>
     <string name="tekst2">Szczęśliwy symbol proszę wskazywać klikając na wybrany. \n
