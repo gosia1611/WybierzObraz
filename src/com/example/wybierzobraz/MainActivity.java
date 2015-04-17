@@ -1,5 +1,6 @@
 package com.example.wybierzobraz;
 
+import com.example.wybierzobraz.Algorithm.Answer;
 import com.example.wybierzobraz.Algorithm.Choise;
 
 import android.app.Activity;
@@ -51,7 +52,7 @@ public class MainActivity extends Activity {
 		});
 		
 		imgGreenCircle = (ImageView) findViewById(R.id.imageView2);
-		imgGreenCircle.setImageResource(R.drawable.green_circle);
+		//imgGreenCircle.setImageResource(R.drawable.green_circle);
 	}
 
 	private void alert(Choise choise) {
@@ -60,8 +61,10 @@ public class MainActivity extends Activity {
 
 		// 2. Chain together various setter methods to set the dialog
 		// characteristics
-		algorithm.getAnswer(choise);
-		builder.setMessage("Wybra³eœ " + choise.toString()).setTitle("Wybrales obraz");
+		
+		Answer result = algorithm.getResult(choise, 0);
+		if(result.doContinue == true) {
+		builder.setMessage("WybraÂ³eÅ“ " + choise.toString()).setTitle("Wybrales obraz");
 
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
@@ -73,22 +76,16 @@ public class MainActivity extends Activity {
 				}
 			}
 		});
-
+		} else {
+			builder.setMessage("Koniec testu");
+		}
 		// 3. Get the AlertDialog from create()
 		AlertDialog dialog = builder.create();
-
 		dialog.show();
 	}
 
 	private void showImages() throws InterruptedException {
 		Integer[] images = algorithm.getImages();
-		imgGreenCircle.setVisibility(View.VISIBLE);
-		img1.setVisibility(View.INVISIBLE);
-		img2.setVisibility(View.INVISIBLE);
-		Thread.sleep(3000);
-		imgGreenCircle.setVisibility(View.INVISIBLE);
-		img1.setVisibility(View.VISIBLE);
-		img2.setVisibility(View.VISIBLE);
 		img1.setImageResource(images[0]);
 		img2.setImageResource(images[1]);
 	}
