@@ -91,7 +91,7 @@ public class Algorithm {
 		Integer[][] randomizedPairs = Utils.permutation(learnPairs);
 		do {
 			learnPairs = new Integer[][]{Utils.permutation(randomizedPairs[0]),Utils.permutation(randomizedPairs[1]), Utils.permutation(randomizedPairs[2])};
-		} while (!pairsEqual(lastLearnPair,learnPairs[0]));
+		} while (lastLearnPair != null && !pairsEqual(lastLearnPair,learnPairs[0]));
 		pairNo = 0;
 		lastLearnPair = learnPairs[learnPairs.length-1];
 	}
@@ -223,9 +223,4 @@ public class Algorithm {
 		}
 		
 	}
-	/*
-	Phase getPhase() {
-		return phase;
-	}
-	*/
 }

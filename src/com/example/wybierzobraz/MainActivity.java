@@ -4,6 +4,7 @@ import com.example.wybierzobraz.Algorithm.Answer;
 import com.example.wybierzobraz.Algorithm.Choise;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -60,6 +61,7 @@ public class MainActivity extends Activity {
 		Answer result = algorithm.getResult(choise, 0);
 		if(result.doContinue == true) {
 			resultText.setText(choise.toString());
+			resultText.setTextColor(Color.RED);
 			showResult();
 			//resultText.setText("DOBRZE");
 			handler = new Handler();
