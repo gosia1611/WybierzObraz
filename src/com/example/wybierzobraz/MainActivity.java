@@ -59,27 +59,57 @@ public class MainActivity extends Activity {
 
 	private void alert(Choise choise) {
 		Answer result = algorithm.getResult(choise, 0);
-		if(result.doContinue == true) {
-			resultText.setText(choise.toString());
-			resultText.setTextColor(Color.RED);
-			showResult();
-			//resultText.setText("DOBRZE");
-			handler = new Handler();
-			handler.postDelayed(new Runnable() {
-			  @Override
-			  public void run() {
-			  try {
-				  showImages();
-			  } catch (InterruptedException e) {
-				  // TODO Auto-generated catch block
-				  e.printStackTrace();
-			  }
-			  }
-			}, 3000);
+		if (result.getPhaseChanged() == true) {
+			switch (algorithm.phase) {
+			case ZERO_PHASE:
+				((TextView) findViewById(R.id.textView2)).setText(R.string.tekst7);
+				break;
+			case TRIAL_PHASE:
+				((TextView) findViewById(R.id.textView2)).setText(R.string.tekst7);
+				break;
+			case LEARNING_PHASE:
+				((TextView) findViewById(R.id.textView2)).setText(R.string.tekst7);
+				break;
+			case TEST_PHASE:
+				((TextView) findViewById(R.id.textView2)).setText(R.string.tekst7);
+				break;
+			case END_PHASE:
+				((TextView) findViewById(R.id.textView2)).setText(R.string.tekst7);
+				break;
+			default:
+				((TextView) findViewById(R.id.textView2)).setText(R.string.error);
+			}
 		} else {
-			//resultText.setText("Koniec testu");
+			if (result.getDoContinue() == true) {
+				if (result.getGoodAnswer() == true) {
+					resultText.setText("DOBRZE");
+					resultText.setTextColor(Color.GREEN);
+				} else {
+					resultText.setText("èLE");
+					resultText.setTextColor(Color.RED);
+				}
+				showResult();
+				handler = new Handler();
+				handler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							showImages();
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}, 3000);
+			} else {
+				// resultText.setText("Koniec testu");
+			}
 		}
 	}
+	
+	/*private void showScreen() {
+		if(algorithm.getResult().
+	}*/
 	
 	private void showResult() {
 		resultText.setVisibility(TextView.VISIBLE);
@@ -89,7 +119,7 @@ public class MainActivity extends Activity {
 		img2.setVisibility(ImageView.INVISIBLE);
 		}
 	
-	private void showGreenScreen() {
+	private void showGreenCircle() {
 		imgGreenCircle.setVisibility(ImageView.VISIBLE);
 		title.setVisibility(TextView.INVISIBLE);
 		img1.setVisibility(ImageView.INVISIBLE);
@@ -102,7 +132,7 @@ public class MainActivity extends Activity {
 		img1.setImageResource(images[0]);
 		img2.setImageResource(images[1]);
 		
-		showGreenScreen();
+		showGreenCircle();
 		handler = new Handler();
 		handler.postDelayed(new Runnable() {
 		  @Override

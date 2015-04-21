@@ -5,6 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_main">Kliknij na wybrany obrazek</string>
     <string name="caption_activity_main">Kliknij na wybrany obrazek.</string>
+    <string name="error">ERROR</string>
     <string name="tekst1">Proszę przeczytać uważnie poniższą instrukcję. \n
             Na ekranie będą prezentowane pary różnych symboli. \n
             Jeden z nich jest "szczęśliwy" a drugi "pechowy". \n

@@ -7,11 +7,12 @@ import java.util.TreeMap;
 
 public class Algorithm {
 	enum Phase {ZERO_PHASE, TRIAL_PHASE, LEARNING_PHASE, TEST_PHASE, END_PHASE};
-	private Phase phase = Phase.TRIAL_PHASE;
+	public Phase phase = Phase.TRIAL_PHASE;
 	enum Choise {LEFT, RIGHT};
 	int pairNo;
 	int cycleNo;
 	Integer[] lastLearnPair;
+	boolean phaseChanged;
 	
 	double p1 = 0.8;
 	double p2 = 0.2;
@@ -158,7 +159,7 @@ public class Algorithm {
 	
 	Answer getResult(Choise choise, int chosenImage) {
 		updateState();
-		return new Answer(phase != Phase.END_PHASE,false,false); //perNo==0 && phase!=phaseZero && phase!=trialPhase
+		return new Answer(phase != Phase.END_PHASE, false, phaseChanged); //perNo==0 && phase!=phaseZero && phase!=trialPhase
 
 	}
 	static Random rand = new Random();
@@ -178,6 +179,7 @@ public class Algorithm {
 	}
 	
 	void updateState() {
+		phaseChanged = false;
 		pairNo++;
 		if(pairNo >= pairsCount()){
 			cycleNo++;
@@ -191,6 +193,7 @@ public class Algorithm {
 				break;
 			case TRIAL_PHASE:
 				phase = Phase.LEARNING_PHASE;
+				phaseChanged = true;
 				break;
 			case LEARNING_PHASE:
 				phase = Phase.TEST_PHASE;
@@ -201,6 +204,7 @@ public class Algorithm {
 			default:  //error
 			}
 			cycleNo = 0;
+			phaseChanged = true;
 		}
 	}
 	
@@ -212,9 +216,9 @@ public class Algorithm {
 	}
 	
 	static class Answer {
-		boolean doContinue; 
-		boolean goodAnswer; 
-		boolean phaseChanged;
+		private boolean doContinue; 
+		private boolean goodAnswer; 
+		private boolean phaseChanged;
 		
 		Answer(boolean doContinue, boolean goodAnswer, boolean phaseChanged) {
 			this.doContinue = doContinue;
@@ -222,5 +226,16 @@ public class Algorithm {
 			this.phaseChanged = phaseChanged;
 		}
 		
+		boolean getDoContinue() {
+			return doContinue;
+		}
+		
+		boolean getGoodAnswer() {
+			return goodAnswer;
+		}
+		
+		boolean getPhaseChanged() {
+			return phaseChanged;
+		}
 	}
 }
