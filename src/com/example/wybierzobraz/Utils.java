@@ -5,8 +5,9 @@ import java.util.Random;
 
 public class Utils {
 	
+	private static Random random = new Random(System.currentTimeMillis());
+	
 	static <T> T[] permutation(T[] inputArray){
-		Random random = new Random();
 		boolean[] used = new boolean[inputArray.length];
 		T[] outputArray = (T[]) Array.newInstance(inputArray[0].getClass(), inputArray.length);
 		

@@ -7,12 +7,12 @@ import java.util.TreeMap;
 
 public class Algorithm {
 	enum Phase {ZERO_PHASE, TRIAL_PHASE, LEARNING_PHASE, TEST_PHASE, END_PHASE};
-	public Phase phase = Phase.TRIAL_PHASE;
-	enum Choise {LEFT, RIGHT};
+	private Phase phase = Phase.TRIAL_PHASE;
+	enum Choice {LEFT, RIGHT, NOTHING};
 	int pairNo;
 	int cycleNo;
 	Integer[] lastLearnPair;
-	boolean phaseChanged;
+	boolean phaseChanged = false;
 	
 	double p1 = 0.8;
 	double p2 = 0.2;
@@ -27,6 +27,7 @@ public class Algorithm {
 	Integer[] trialPair = {R.drawable.g, R.drawable.h};
 	Integer[][] learnPairs;
 	Map<Integer, Double> learningPhaseProbabilities = new TreeMap<Integer, Double>();
+	Map<Integer, Double> Probabilities = new TreeMap<Integer, Double>();
 	Integer[][] testPairs;
 	
 	Algorithm() {
@@ -34,8 +35,20 @@ public class Algorithm {
 	}
 	
 	void init() {
+		initProbabilites();
 		initLearningPhasePairs();
 		initTestPhasePairs();
+	}
+	
+	void initProbabilites() {
+		Probabilities.put(images[0], 0.8);
+		Probabilities.put(images[1], 0.2);
+		Probabilities.put(images[2], 0.7);
+		Probabilities.put(images[3], 0.3);
+		Probabilities.put(images[4], 0.6);
+		Probabilities.put(images[5], 0.4);
+		Probabilities.put(trialPair[0], 1.0);
+		Probabilities.put(trialPair[1], 0.0);
 	}
 	
 	void initLearningPhasePairs() {
@@ -64,7 +77,7 @@ public class Algorithm {
 				}
 			}
 		}
-		testPairs = allPairs.toArray(new Integer[][]{});
+		testPairs = Utils.permutation(allPairs.toArray(new Integer[][]{}));
 	}
 	
 	private boolean isLearningPhasePair(Integer[] pair) {
@@ -90,9 +103,9 @@ public class Algorithm {
 
 	void initLearnigPhaseOrder() {
 		Integer[][] randomizedPairs = Utils.permutation(learnPairs);
-		do {
+		//do {
 			learnPairs = new Integer[][]{Utils.permutation(randomizedPairs[0]),Utils.permutation(randomizedPairs[1]), Utils.permutation(randomizedPairs[2])};
-		} while (lastLearnPair != null && !pairsEqual(lastLearnPair,learnPairs[0]));
+		//} while (lastLearnPair != null && !pairsEqual(lastLearnPair,learnPairs[0]));
 		pairNo = 0;
 		lastLearnPair = learnPairs[learnPairs.length-1];
 	}
@@ -147,9 +160,9 @@ public class Algorithm {
 		case ZERO_PHASE:
 			return 1;
 		case TRIAL_PHASE:
-			return 6;
+			return 2; //6;
 		case LEARNING_PHASE:
-			return 20;
+			return 2; //20;
 		case TEST_PHASE:
 			return 1;
 		default:
@@ -157,27 +170,28 @@ public class Algorithm {
 		}
 	}
 	
-	Answer getResult(Choise choise, int chosenImage) {
+	Answer getResult(Choice choise, int chosenImage) {
+		Phase curPhase = phase;
 		updateState();
-		return new Answer(phase != Phase.END_PHASE, false, phaseChanged); //perNo==0 && phase!=phaseZero && phase!=trialPhase
-
+		boolean goodAnswer = isGoodAnswer(chosenImage);
+		Answer answer = new Answer(phase != Phase.END_PHASE, goodAnswer, phaseChanged, curPhase); //perNo==0 && phase!=phaseZero && phase!=trialPhase
+		return answer;
 	}
-	static Random rand = new Random();
-	boolean getAnswer(Choise choise, int chosenImage) {
-		switch(phase) {
-		case ZERO_PHASE:
+	//
+	private boolean isGoodAnswer(int chosenImage) {
+		Random rand = new Random();
+		double probability = rand.nextDouble();
+		//if choise!=NOTHING
+		if(phase == Phase.LEARNING_PHASE || phase == Phase.TEST_PHASE) {
+			if (probability <= Probabilities.get(chosenImage)) {
 			return true;
-		case TRIAL_PHASE:
-			return chosenImage == trialPair[0];
-		case LEARNING_PHASE:
-			double probability = learningPhaseProbabilities.get(chosenImage);
-			return rand.nextDouble()<probability;
-			//TEST_PHASE
-		default:
-			return false;  //error
+			} else {
+				return false;
+			}
 		}
+		return false;
 	}
-	
+	//
 	void updateState() {
 		phaseChanged = false;
 		pairNo++;
@@ -193,7 +207,6 @@ public class Algorithm {
 				break;
 			case TRIAL_PHASE:
 				phase = Phase.LEARNING_PHASE;
-				phaseChanged = true;
 				break;
 			case LEARNING_PHASE:
 				phase = Phase.TEST_PHASE;
@@ -216,26 +229,16 @@ public class Algorithm {
 	}
 	
 	static class Answer {
-		private boolean doContinue; 
-		private boolean goodAnswer; 
-		private boolean phaseChanged;
+		public boolean doContinue;
+		public boolean goodAnswer; 
+		public boolean ifPhaseChanged;
+		public Phase phase;
 		
-		Answer(boolean doContinue, boolean goodAnswer, boolean phaseChanged) {
+		Answer(boolean doContinue, boolean goodAnswer, boolean ifPhaseChanged, Phase phase) {
 			this.doContinue = doContinue;
 			this.goodAnswer = goodAnswer;
-			this.phaseChanged = phaseChanged;
-		}
-		
-		boolean getDoContinue() {
-			return doContinue;
-		}
-		
-		boolean getGoodAnswer() {
-			return goodAnswer;
-		}
-		
-		boolean getPhaseChanged() {
-			return phaseChanged;
+			this.ifPhaseChanged = ifPhaseChanged;
+			this.phase = phase;
 		}
 	}
 }

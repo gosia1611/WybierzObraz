@@ -40,8 +40,8 @@ public class StartActivity extends Activity {
     	case 6: 
     		((TextView)findViewById(R.id.textView1)).setText(R.string.tekst6); break;
     	case 7: 
-    		((TextView)findViewById(R.id.textView1)).setText(R.string.tekst7); break;   		
-    	case 8:
+    	//	((TextView)findViewById(R.id.textView1)).setText(R.string.tekst7); break;   		
+    	//case 8:
     		Intent intent = new Intent(context, MainActivity.class);
     		startActivity(intent);
     		finish(); break;
