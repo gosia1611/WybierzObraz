@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 public class Algorithm {
 	enum Phase {ZERO_PHASE, TRIAL_PHASE, LEARNING_PHASE, TEST_PHASE, END_PHASE};
-	private Phase phase = Phase.TRIAL_PHASE;
+	private Phase phase = Phase.ZERO_PHASE;
 	enum Choice {LEFT, RIGHT, NOTHING};
 	int pairNo;
 	int cycleNo;
@@ -26,7 +26,6 @@ public class Algorithm {
 	Integer[] images = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e, R.drawable.f};
 	Integer[] trialPair = {R.drawable.g, R.drawable.h};
 	Integer[][] learnPairs;
-	Map<Integer, Double> learningPhaseProbabilities = new TreeMap<Integer, Double>();
 	Map<Integer, Double> Probabilities = new TreeMap<Integer, Double>();
 	Integer[][] testPairs;
 	
@@ -54,14 +53,7 @@ public class Algorithm {
 	void initLearningPhasePairs() {
 		Integer[] randomizedImages = Utils.permutation(images);
 		learnPairs = new Integer[][]{{randomizedImages[0], randomizedImages[1]}, {randomizedImages[2], randomizedImages[3]}, {randomizedImages[4], randomizedImages[5]}};
-		learningPhaseProbabilities.put(learnPairs[0][0], 0.8);
-		learningPhaseProbabilities.put(learnPairs[0][1], 0.2);
-		learningPhaseProbabilities.put(learnPairs[1][0], 0.7);
-		learningPhaseProbabilities.put(learnPairs[1][1], 0.3);
-		learningPhaseProbabilities.put(learnPairs[2][0], 0.6);
-		learningPhaseProbabilities.put(learnPairs[0][1], 0.4);
 	}
-
 	
 	void initTestPhasePairs() {
 		ArrayList<Integer[]> allPairs = new ArrayList<Integer[]>(75);
@@ -114,7 +106,7 @@ public class Algorithm {
 	Integer[] getImages(){
 		switch(phase) {
 		case ZERO_PHASE:
-			return getTrialPhaseImages();
+			return trialPair;
 		case TRIAL_PHASE:
 			return getTrialPhaseImages();
 		case LEARNING_PHASE: 
@@ -170,19 +162,21 @@ public class Algorithm {
 		}
 	}
 	
-	Answer getResult(Choice choise, int chosenImage) {
-		Phase curPhase = phase;
+	Phase getCurrentPhase() {
+		return phase;
+	}
+	
+	State getUpdatedState() {
 		updateState();
-		boolean goodAnswer = isGoodAnswer(chosenImage);
-		Answer answer = new Answer(phase != Phase.END_PHASE, goodAnswer, phaseChanged, curPhase); //perNo==0 && phase!=phaseZero && phase!=trialPhase
+		State answer = new State(phase != Phase.END_PHASE, phaseChanged); //perNo==0 && phase!=phaseZero && phase!=trialPhase
 		return answer;
 	}
-	//
-	private boolean isGoodAnswer(int chosenImage) {
-		Random rand = new Random();
+
+	boolean isGoodAnswer(Choice choise, int chosenImage) {
+		Random rand = new Random(System.currentTimeMillis());
 		double probability = rand.nextDouble();
 		//if choise!=NOTHING
-		if(phase == Phase.LEARNING_PHASE || phase == Phase.TEST_PHASE) {
+		if(phase != Phase.ZERO_PHASE || phase == Phase.END_PHASE) {
 			if (probability <= Probabilities.get(chosenImage)) {
 			return true;
 			} else {
@@ -191,7 +185,7 @@ public class Algorithm {
 		}
 		return false;
 	}
-	//
+
 	void updateState() {
 		phaseChanged = false;
 		pairNo++;
@@ -228,17 +222,13 @@ public class Algorithm {
 		boolean betterChoise;
 	}
 	
-	static class Answer {
+	static class State {
 		public boolean doContinue;
-		public boolean goodAnswer; 
 		public boolean ifPhaseChanged;
-		public Phase phase;
 		
-		Answer(boolean doContinue, boolean goodAnswer, boolean ifPhaseChanged, Phase phase) {
+		State(boolean doContinue, boolean ifPhaseChanged) {
 			this.doContinue = doContinue;
-			this.goodAnswer = goodAnswer;
 			this.ifPhaseChanged = ifPhaseChanged;
-			this.phase = phase;
 		}
 	}
 }

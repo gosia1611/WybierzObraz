@@ -67,6 +67,8 @@ public final class R {
         public static final int tekst5=0x7f050009;
         public static final int tekst6=0x7f05000a;
         public static final int tekst7=0x7f05000b;
+        public static final int tekst8=0x7f05000c;
+        public static final int tekst9=0x7f05000d;
         public static final int title_activity_main=0x7f050002;
     }
     public static final class style {

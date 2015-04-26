@@ -1,6 +1,8 @@
 package com.example.wybierzobraz;
 
-import com.example.wybierzobraz.Algorithm.Answer;
+import java.util.Random;
+
+import com.example.wybierzobraz.Algorithm.State;
 import com.example.wybierzobraz.Algorithm.Choice;
 import com.example.wybierzobraz.Algorithm.Phase;
 
@@ -20,6 +22,8 @@ public class MainActivity extends Activity {
 	int image1;
 	int image2;
 	int chosenImage;
+	int i=0;
+	Phase phase2;
 	private ImageView imgGreenCircle;
 	private TextView title;
 	private TextView resultText;
@@ -68,8 +72,13 @@ public class MainActivity extends Activity {
 		newPhaseButtonOk = (Button) findViewById(R.id.button_ok);
 		newPhaseButtonOk.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				hidePhaseIntroductionView();
-				showImages();
+				if ((phase2 == Phase.TEST_PHASE) && (i != 1)) {
+					text.setText(R.string.tekst8);
+					i=1;
+				} else {
+					hidePhaseIntroductionView();
+					showImages();
+				}
 			}
 		});
 	}
@@ -84,23 +93,26 @@ public class MainActivity extends Activity {
 		} else if (choice == Choice.RIGHT) {
 			chosenImage = image2;
 		}
-		
-		final Answer result = algorithm.getResult(choice, chosenImage);
+
 		int delay = 0;
-		if (result.phase == Phase.LEARNING_PHASE) {
-			showResult(result.goodAnswer, choice);
+		if (phase2 == Phase.TRIAL_PHASE || phase2 == Phase.LEARNING_PHASE) {
+			showResult(algorithm.isGoodAnswer(choice, chosenImage), choice);
 			delay = 3000;
 		}
+
+		final State result = algorithm.getUpdatedState();
+		phase2 = algorithm.getCurrentPhase();
+		
 		if (result.doContinue == true) {
 			handler.postDelayed(new Runnable() {
 				@Override
 				public void run() {
 					hideResultView();
 					if (result.ifPhaseChanged == true) {
-						showPhaseIntroductionView(result.phase);
+						showPhaseIntroductionView(phase2);
 					}
 					else
-						showImages();				
+						showImages();		
 				}
 			}, delay);
 		} else {
@@ -131,7 +143,11 @@ public class MainActivity extends Activity {
 		image1 = images[0];
 		image2 = images[1];
 		
+		phase2 = algorithm.getCurrentPhase();
+		if (phase2 != Phase.ZERO_PHASE) {
 		showGreenCircleView();
+		Random rand = new Random(System.currentTimeMillis());
+		int randomNumber = rand.nextInt(2)*1000+1000;
 		handler.postDelayed(new Runnable() {
 		  @Override
 		  public void run() {
@@ -140,7 +156,10 @@ public class MainActivity extends Activity {
 			  
 			  handler.postDelayed(notingChoosenRunnable, 3000);
 		  }
-		}, 3000);	
+		}, randomNumber);	
+		} else {
+			showImagesView();
+		}
 	}
 
 	private void showGreenCircleView() {
@@ -175,20 +194,17 @@ public class MainActivity extends Activity {
 		text.setVisibility(View.VISIBLE);
 		newPhaseButtonOk.setVisibility(View.VISIBLE);
 		switch (phase) {
-		case ZERO_PHASE:
-			text.setText(R.string.tekst7);
-			break;
 		case TRIAL_PHASE:
-			text.setText(R.string.tekst7);
+			text.setText(R.string.tekst5);
 			break;
 		case LEARNING_PHASE:
-			text.setText(R.string.tekst7);
+			text.setText(R.string.tekst6);
 			break;
 		case TEST_PHASE:
 			text.setText(R.string.tekst7);
 			break;
 		case END_PHASE:
-			text.setText(R.string.tekst7);
+			text.setText(R.string.tekst9);
 			break;
 		default:
 			text.setText(R.string.error);

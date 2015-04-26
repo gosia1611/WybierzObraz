@@ -20,13 +20,22 @@
     <string name="tekst3">Zbierz jak najwięcej nagród samodzielnie oceniając kolejne prezentowane symbole. \n
             Kliknij OK, aby kontynuować.</string>      
 	<string name="tekst4">Zanim zaczniemy badanie sprawdzimy czy właściwie rozumiesz podane instrukcje. \n
-    		Wybierz jeden z poniższych symboli.</string>
-   	<string name="tekst5">Świetnie! Niebawem przejdziemy do właściwego badania. \n
-   	    	Kliknij OK, aby kontynuować.</string>
-    <string name="tekst6">Przed prezentacją każdej pary symboli zobaczysz planszę z zielonym kółkiem. \n
+    		Kliknij OK, aby kontynuować.</string>
+   	<string name="tekst5">Świetnie! \n
+   	    	Przed prezentacją każdej pary symboli zobaczysz planszę z zielonym kółkiem. \n
         	Na początek kilka par symboli na próbę. \n
         	Kliknij OK, aby kontynuować.</string>
-	<string name="tekst7">Świetnie. Teraz rozpocznie się właściwa część badania. \n
+	<string name="tekst6">Świetnie. Teraz rozpocznie się właściwa część badania. \n
 	    	Kliknij OK, aby kontynuować.</string>
-
+	<string name="tekst7">Dziękujemy za wykonanie pierwszej części badania. \n
+			Prosimy o przejście do drugiej, ostatniej części. \n
+			Jest ona zdecydowanie krótsza od pierwszej części. \n
+			Jeśli potrzebujesz, możesz zrobić sobie chwilę przerwy. \n
+			Kliknij OK, aby kontynuować.</string>
+	<string name="tekst8">Wszystkie symbole pojawiały się w poprzedniej części badania, ale tym razem mogą być zestawione w parach, których wcześniej nie było. \n
+         	Wybierz wówczas ten symbol, który wydaje Ci się lepszy. \n
+         	Jeśli nie masz pewności, który symbol wybrać, zaufaj swojej intuicji. \n
+         	Kliknij OK, aby kontynuować.</string>
+    <string name="tekst9">Gratulacje! Całe badanie zostało ukończone! \n
+        	Dziękujemy za jego wykonanie.</string>
 </resources>
