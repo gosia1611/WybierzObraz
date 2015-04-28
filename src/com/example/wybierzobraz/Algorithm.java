@@ -1,5 +1,13 @@
 package com.example.wybierzobraz;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
+import com.csvreader.CsvWriter;
+//import au.com.bytecode.opencsv.CSVWriter;
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
@@ -13,6 +21,8 @@ public class Algorithm {
 	int cycleNo;
 	Integer[] lastLearnPair;
 	boolean phaseChanged = false;
+	String outputFile = "result.csv";
+	boolean alreadyExists = new File(outputFile).exists();
 	
 	double p1 = 0.8;
 	double p2 = 0.2;
@@ -37,6 +47,28 @@ public class Algorithm {
 		initProbabilites();
 		initLearningPhasePairs();
 		initTestPhasePairs();
+		initFile();
+	}
+	
+	void initFile() {
+		try {
+			CsvWriter csvOutput = new CsvWriter(new FileWriter(outputFile, true), ',');
+			//CSVWriter writer = new CSVWriter(new FileWriter("yourfile.csv"), ',');
+			if (!alreadyExists)
+			{
+			csvOutput.write("obrazek lewy");
+			csvOutput.write("obrazek prawy");
+			csvOutput.write("który wybrany");
+			csvOutput.write("czy wybór poprawny");
+			csvOutput.write("czy lepszy wybrany");
+			csvOutput.endRecord();
+			}
+			
+			//csvOutput.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	void initProbabilites() {
