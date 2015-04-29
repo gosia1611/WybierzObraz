@@ -1,14 +1,11 @@
 package com.example.wybierzobraz;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-
-import com.csvreader.CsvWriter;
-//import au.com.bytecode.opencsv.CSVWriter;
+import com.opencsv.CSVWriter;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
@@ -21,17 +18,8 @@ public class Algorithm {
 	int cycleNo;
 	Integer[] lastLearnPair;
 	boolean phaseChanged = false;
-	String outputFile = "result.csv";
-	boolean alreadyExists = new File(outputFile).exists();
-	
-	double p1 = 0.8;
-	double p2 = 0.2;
-	double p3 = 0.7;
-	double p4 = 0.3;
-	double p5 = 0.6;
-	double p6 = 0.4;
-	double p7 = 1;
-	double p8 = 0;
+	CSVWriter writer;
+	List<String[]> data = new ArrayList<String[]>();
 	
 	Integer[] images = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e, R.drawable.f};
 	Integer[] trialPair = {R.drawable.g, R.drawable.h};
@@ -47,30 +35,8 @@ public class Algorithm {
 		initProbabilites();
 		initLearningPhasePairs();
 		initTestPhasePairs();
-		initFile();
 	}
-	
-	void initFile() {
-		try {
-			CsvWriter csvOutput = new CsvWriter(new FileWriter(outputFile, true), ',');
-			//CSVWriter writer = new CSVWriter(new FileWriter("yourfile.csv"), ',');
-			if (!alreadyExists)
-			{
-			csvOutput.write("obrazek lewy");
-			csvOutput.write("obrazek prawy");
-			csvOutput.write("który wybrany");
-			csvOutput.write("czy wybór poprawny");
-			csvOutput.write("czy lepszy wybrany");
-			csvOutput.endRecord();
-			}
-			
-			//csvOutput.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
+
 	void initProbabilites() {
 		Probabilities.put(images[0], 0.8);
 		Probabilities.put(images[1], 0.2);
@@ -117,13 +83,12 @@ public class Algorithm {
 	private boolean pairsEqual(Integer[] p, Integer[] r) {
 		return (p[0] == r[0] || p[0] == r[1]) && (p[1] == r[0] || p[1] == r[1]);
 	}
-	
+
 	void initCycle() {
 		if(phase == Phase.LEARNING_PHASE) {
 			initLearnigPhaseOrder();
 		}
 	}
-	
 
 	void initLearnigPhaseOrder() {
 		Integer[][] randomizedPairs = Utils.permutation(learnPairs);
@@ -133,7 +98,6 @@ public class Algorithm {
 		pairNo = 0;
 		lastLearnPair = learnPairs[learnPairs.length-1];
 	}
-	
 
 	Integer[] getImages(){
 		switch(phase) {
@@ -208,9 +172,9 @@ public class Algorithm {
 		Random rand = new Random(System.currentTimeMillis());
 		double probability = rand.nextDouble();
 		//if choise!=NOTHING
-		if(phase != Phase.ZERO_PHASE || phase == Phase.END_PHASE) {
+		if(phase != Phase.ZERO_PHASE || phase != Phase.END_PHASE) {
 			if (probability <= Probabilities.get(chosenImage)) {
-			return true;
+				return true;
 			} else {
 				return false;
 			}
@@ -233,12 +197,15 @@ public class Algorithm {
 				break;
 			case TRIAL_PHASE:
 				phase = Phase.LEARNING_PHASE;
+				data.add(new String[] {phase.toString()});
 				break;
 			case LEARNING_PHASE:
 				phase = Phase.TEST_PHASE;
+				data.add(new String[] {phase.toString()});
 				break;
 			case TEST_PHASE:
 				phase = Phase.END_PHASE;
+				writeFile();
 				break;
 			default:  //error
 			}
@@ -262,5 +229,47 @@ public class Algorithm {
 			this.doContinue = doContinue;
 			this.ifPhaseChanged = ifPhaseChanged;
 		}
+	}
+
+	void writeFile() {
+		try {
+			writer = new CSVWriter(new FileWriter("mnt/sdcard/file.csv"), ',');
+			writer.writeNext(new String[] {"", "LEFT_IMAGE", "RIGHT_IMAGE", "CHOICE", "IS_RIGHT_CHOICE", "IS_BETTER_CHOICE"});
+			writer.writeAll(data);
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	void addToFile(int leftImage, int rightImage, Choice choice, boolean isGoodAnswer){
+		String answer = "";
+		String isBetterChoice = "";
+		if (choice == Choice.NOTHING){
+			answer = "NOTHING";
+			isBetterChoice = "NOTHING";
+		}
+		else if (isGoodAnswer == true)
+			answer = "RIGHT";
+		else if (isGoodAnswer == false)
+			answer = "WRONG";
+		
+		if (choice != Choice.NOTHING){
+			if ((choice == Choice.LEFT && (Probabilities.get(leftImage) > Probabilities.get(rightImage))) || (choice == Choice.RIGHT && (Probabilities.get(rightImage) > Probabilities.get(leftImage)))) {
+				isBetterChoice = "YES";
+			} else {
+				isBetterChoice = "NO";
+			}
+		}
+		String leftIm = ""; 
+		String rightIm = "";
+		for(int i=0; i<images.length; i++) {
+			if (leftImage == images[i])
+				leftIm = Integer.toString(i+1);
+			else if (rightImage == images[i])
+				rightIm = Integer.toString(i+1);
+		}
+		data.add(new String[] {"", leftIm, rightIm, choice.toString(), answer, isBetterChoice});
 	}
 }

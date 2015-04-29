@@ -27,5 +27,5 @@
             android:label="@string/title_activity_main" android:screenOrientation="landscape">
         </activity>
     </application>
-
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </manifest>

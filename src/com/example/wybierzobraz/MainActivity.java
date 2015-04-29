@@ -95,15 +95,20 @@ public class MainActivity extends Activity {
 		}
 
 		int delay = 0;
+		boolean answer = algorithm.isGoodAnswer(choice, chosenImage);
 		if (phase2 == Phase.TRIAL_PHASE || phase2 == Phase.LEARNING_PHASE) {
-			showResult(algorithm.isGoodAnswer(choice, chosenImage), choice);
+			showResult(answer, choice);
 			delay = 3000;
+		}
+		
+		if (phase2 == Phase.LEARNING_PHASE || phase2 == Phase.TEST_PHASE) {
+		algorithm.addToFile(image1, image2, choice, answer);
 		}
 
 		final State result = algorithm.getUpdatedState();
 		phase2 = algorithm.getCurrentPhase();
 		
-		if (result.doContinue == true) {
+		/*if (result.doContinue == true) {*/
 			handler.postDelayed(new Runnable() {
 				@Override
 				public void run() {
@@ -115,11 +120,11 @@ public class MainActivity extends Activity {
 						showImages();		
 				}
 			}, delay);
-		} else {
+		/*} else {
 			resultText.setText("Koniec testu");
 			resultText.setTextColor(Color.BLUE);
 			resultText.setVisibility(View.VISIBLE);
-		}
+		}*/
 	}
 
 	private void showResult(boolean isGoodAnswer, Choice choice) {
@@ -205,6 +210,13 @@ public class MainActivity extends Activity {
 			break;
 		case END_PHASE:
 			text.setText(R.string.tekst9);
+			newPhaseButtonOk.setVisibility(View.INVISIBLE);
+			handler.postDelayed(new Runnable() {
+				  @Override
+				  public void run() {
+					  System.exit(0);
+				  }
+				}, 10000);
 			break;
 		default:
 			text.setText(R.string.error);
