@@ -23,8 +23,8 @@ public class Algorithm {
 	List<String[]> data = new ArrayList<String[]>();
 	long time = System.currentTimeMillis();
 	
-	Integer[] images = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e, R.drawable.f};
-	Integer[] trialPair = {R.drawable.g, R.drawable.h};
+	Integer[] images = {R.drawable.chi, R.drawable.ha, R.drawable.ka, R.drawable.ma, R.drawable.sa, R.drawable.so};
+	Integer[] trialPair = {R.drawable.ya1, R.drawable.yo1};
 	Integer[][] learnPairs;
 	Map<Integer, Double> Probabilities = new TreeMap<Integer, Double>();
 	Integer[][] testPairs;
@@ -152,9 +152,9 @@ public class Algorithm {
 		case ZERO_PHASE:
 			return 1;
 		case TRIAL_PHASE:
-			return 3; //6;
+			return 6; //6;
 		case LEARNING_PHASE:
-			return 6; //20;
+			return 20; //20;
 		case TEST_PHASE:
 			return 1;
 		default:

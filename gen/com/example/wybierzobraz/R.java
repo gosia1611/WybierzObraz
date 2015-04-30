@@ -39,6 +39,8 @@ public final class R {
         public static final int ma=0x7f02000e;
         public static final int sa=0x7f02000f;
         public static final int so=0x7f020010;
+        public static final int ya1=0x7f020011;
+        public static final int yo1=0x7f020012;
     }
     public static final class id {
         public static final int RelativeLayout1=0x7f070002;
