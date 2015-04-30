@@ -7,6 +7,8 @@ import com.example.wybierzobraz.Algorithm.Choice;
 import com.example.wybierzobraz.Algorithm.Phase;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,13 +44,14 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		final Context context = this;
 		handler = new Handler();
-		init();
+		init(context);
 
 		showImages();
 	}
 
-	private void init() {
+	private void init(final Context context) {
 		img1 = (ImageView) findViewById(R.id.imageView1);
 		img1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -72,13 +75,19 @@ public class MainActivity extends Activity {
 		newPhaseButtonOk = (Button) findViewById(R.id.button_ok);
 		newPhaseButtonOk.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				if ((phase2 == Phase.TEST_PHASE) && (i != 1)) {
-					text.setText(R.string.tekst8);
+				if ((phase2 == Phase.TEST_PHASE) && (i == 0)) {
 					i=1;
+					showPhaseIntroductionView(phase2);
+				} else if (phase2 == Phase.PROBABILITY_PHASE){
+					algorithm.writeFile();
+					Intent intent = new Intent(context, ProbabilityActivity.class);
+		    		startActivity(intent);
+		    		finish();
 				} else {
 					hidePhaseIntroductionView();
 					showImages();
 				}
+				
 			}
 		});
 	}
@@ -206,7 +215,14 @@ public class MainActivity extends Activity {
 			text.setText(R.string.tekst6);
 			break;
 		case TEST_PHASE:
-			text.setText(R.string.tekst7);
+			if (i == 0) {
+				text.setText(R.string.tekst7);
+			} else if (i == 1) {
+				text.setText(R.string.tekst8);
+			}
+			break;
+		case PROBABILITY_PHASE:
+			text.setText(R.string.tekst10);
 			break;
 		case END_PHASE:
 			text.setText(R.string.tekst9);

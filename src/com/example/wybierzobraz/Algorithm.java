@@ -2,6 +2,7 @@ package com.example.wybierzobraz;
 
 import java.io.FileWriter;
 import java.io.IOException;
+
 import com.opencsv.CSVWriter;
 
 import java.util.ArrayList;
@@ -11,15 +12,16 @@ import java.util.Random;
 import java.util.TreeMap;
 
 public class Algorithm {
-	enum Phase {ZERO_PHASE, TRIAL_PHASE, LEARNING_PHASE, TEST_PHASE, END_PHASE};
+	enum Phase {ZERO_PHASE, TRIAL_PHASE, LEARNING_PHASE, TEST_PHASE, PROBABILITY_PHASE, END_PHASE};
 	private Phase phase = Phase.ZERO_PHASE;
 	enum Choice {LEFT, RIGHT, NOTHING};
 	int pairNo;
 	int cycleNo;
 	Integer[] lastLearnPair;
 	boolean phaseChanged = false;
-	CSVWriter writer;
+	CSVWriter writer, writer2;
 	List<String[]> data = new ArrayList<String[]>();
+	long time = System.currentTimeMillis();
 	
 	Integer[] images = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e, R.drawable.f};
 	Integer[] trialPair = {R.drawable.g, R.drawable.h};
@@ -57,7 +59,7 @@ public class Algorithm {
 		ArrayList<Integer[]> allPairs = new ArrayList<Integer[]>(75);
 		for (int i=0; i<images.length; i++) {
 			for (int j=i+1; j<images.length; j++){
-				Integer[] pair = new Integer[]{images[i], images[j]};
+				Integer[] pair = Utils.permutation(new Integer[]{images[i], images[j]});
 				if (isLearningPhasePair(pair)) {
 					allPairs.add(pair);
 				} else {
@@ -109,6 +111,8 @@ public class Algorithm {
 			return getLearnPhaseImages();
 		case TEST_PHASE:
 			return getTestPhaseImages();
+		case PROBABILITY_PHASE:
+			return images;
 		case END_PHASE:
 			return null;
 		}
@@ -142,15 +146,15 @@ public class Algorithm {
 			return 0;  //error
 		}
 	}
-	
+
 	private int cyclesCount() {
 		switch(phase){
 		case ZERO_PHASE:
 			return 1;
 		case TRIAL_PHASE:
-			return 2; //6;
+			return 3; //6;
 		case LEARNING_PHASE:
-			return 2; //20;
+			return 6; //20;
 		case TEST_PHASE:
 			return 1;
 		default:
@@ -172,7 +176,7 @@ public class Algorithm {
 		Random rand = new Random(System.currentTimeMillis());
 		double probability = rand.nextDouble();
 		//if choise!=NOTHING
-		if(phase != Phase.ZERO_PHASE || phase != Phase.END_PHASE) {
+		if(phase == Phase.TRIAL_PHASE || phase == Phase.LEARNING_PHASE || phase == Phase.TEST_PHASE) {
 			if (probability <= Probabilities.get(chosenImage)) {
 				return true;
 			} else {
@@ -204,8 +208,12 @@ public class Algorithm {
 				data.add(new String[] {phase.toString()});
 				break;
 			case TEST_PHASE:
+				phase = Phase.PROBABILITY_PHASE;
+				//writeFile();
+				break;
+			case PROBABILITY_PHASE:
 				phase = Phase.END_PHASE;
-				writeFile();
+				//writeFile();
 				break;
 			default:  //error
 			}
@@ -230,10 +238,14 @@ public class Algorithm {
 			this.ifPhaseChanged = ifPhaseChanged;
 		}
 	}
+	
+	void setPhase(Phase phase) {
+		this.phase = phase;
+	}
 
 	void writeFile() {
 		try {
-			writer = new CSVWriter(new FileWriter("mnt/sdcard/file.csv"), ',');
+			writer = new CSVWriter(new FileWriter("mnt/sdcard/file_images.csv"), ',');
 			writer.writeNext(new String[] {"", "LEFT_IMAGE", "RIGHT_IMAGE", "CHOICE", "IS_RIGHT_CHOICE", "IS_BETTER_CHOICE"});
 			writer.writeAll(data);
 			writer.close();
@@ -271,5 +283,21 @@ public class Algorithm {
 				rightIm = Integer.toString(i+1);
 		}
 		data.add(new String[] {"", leftIm, rightIm, choice.toString(), answer, isBetterChoice});
+	}
+	
+	void writeProbabilitiesFile() {
+		try {
+			writer2 = new CSVWriter(new FileWriter("mnt/sdcard/file_probabilities.csv"), ',');
+			writer2.writeNext(new String[] {"IMAGE_NUMBER", "PROBABILITY"});
+			writer2.writeAll(data);
+			writer2.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	void addProbabilityToFile(int image, int probability) {
+		data.add(new String[] {Integer.toString(image), Integer.toString(probability)});
 	}
 }

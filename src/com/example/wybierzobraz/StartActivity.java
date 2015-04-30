@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-
 public class StartActivity extends Activity {
 	private int pageNumber = 1;
 
@@ -25,7 +24,7 @@ public class StartActivity extends Activity {
             }
         });
     }
-    
+   
     private void performOk(Context context) {
     	pageNumber++;
     	switch (pageNumber) {
@@ -41,5 +40,4 @@ public class StartActivity extends Activity {
     		finish(); break;
     }
     }
-
 }
