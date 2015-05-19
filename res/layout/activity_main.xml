@@ -9,58 +9,44 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.wybierzobraz.MainActivity" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:text="@string/caption_activity_main"
-            android:textSize="25px" />
-
         <RelativeLayout
             android:id="@+id/RelativeLayout1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:columnCount="3"
             android:orientation="horizontal" >
 
             <ImageView
                 android:id="@+id/imageView1"
                 android:visibility="invisible"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/imageView3"
                 android:layout_margin="10dp"
                 android:clickable="true"
-                android:src="@drawable/chi" />
-
+                android:layout_centerVertical="true"
+                android:src="@drawable/ha" />
+            
             <ImageView
                 android:id="@+id/imageView3"
                 android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:src="@drawable/green_circle" />
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:visibility="invisible"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/imageView3"
                 android:layout_margin="10dp"
                 android:clickable="true"
-                android:src="@drawable/chi" />
+                android:layout_centerVertical="true"
+                android:src="@drawable/ha" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -73,36 +59,37 @@
                 android:textSize="70px" />
 
         </RelativeLayout>
-    </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
         
-    <Button
-        android:id="@+id/button_ok"
-       	android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="22dp"
-        android:layout_marginRight="23dp"
-        android:minWidth="120px"
-        android:text="OK"
-        android:textSize="50px" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginRight="29dp"
-        android:gravity="center"
-        android:textSize="35px"
-        android:text="@string/tekst1"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+	    <Button
+	        android:id="@+id/button_ok"
+	       	android:visibility="invisible"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_marginBottom="22dp"
+	        android:layout_marginRight="23dp"
+	        android:minWidth="120px"
+	        android:text="OK"
+	        android:textSize="50px" />
+	
+	    <TextView
+	        android:id="@+id/textView3"
+	        android:visibility="invisible"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:layout_marginRight="29dp"
+	        android:gravity="center"
+	        android:textSize="35px"
+	        android:text="@string/tekst1"
+	        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    
     </RelativeLayout>
 
 </RelativeLayout>

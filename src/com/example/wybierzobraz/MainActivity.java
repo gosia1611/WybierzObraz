@@ -27,7 +27,6 @@ public class MainActivity extends Activity {
 	int i=0;
 	Phase phase2;
 	private ImageView imgGreenCircle;
-	private TextView title;
 	private TextView resultText;
 	private TextView text;
 	private Button newPhaseButtonOk;
@@ -68,7 +67,6 @@ public class MainActivity extends Activity {
 
 		imgGreenCircle = (ImageView) findViewById(R.id.imageView3);
 		imgGreenCircle.setImageResource(R.drawable.green_circle);
-		title = (TextView) findViewById(R.id.textView1);
 		resultText = (TextView) findViewById(R.id.textView2);
 		text = (TextView) findViewById(R.id.textView3);
 
@@ -129,11 +127,6 @@ public class MainActivity extends Activity {
 						showImages();		
 				}
 			}, delay);
-		/*} else {
-			resultText.setText("Koniec testu");
-			resultText.setTextColor(Color.BLUE);
-			resultText.setVisibility(View.VISIBLE);
-		}*/
 	}
 
 	private void showResult(boolean isGoodAnswer, Choice choice) {
@@ -193,13 +186,11 @@ public class MainActivity extends Activity {
 	}
 	
 	private void showImagesView() {
-		title.setVisibility(View.VISIBLE);
 		img1.setVisibility(View.VISIBLE);
 		img2.setVisibility(View.VISIBLE);
 	}
 	
 	private void hideImagesView() {
-		title.setVisibility(View.INVISIBLE);
 		img1.setVisibility(View.INVISIBLE);
 		img2.setVisibility(View.INVISIBLE);
 	}

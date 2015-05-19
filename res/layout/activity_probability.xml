@@ -9,82 +9,91 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.wybierzobraz.ProbabilityActivity" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:src="@drawable/e" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
                 
-                    <Button
-				        android:id="@+id/button_ok"
-				        android:layout_width="wrap_content"
-				        android:layout_height="wrap_content"
-				        android:layout_alignParentBottom="true"
-				        android:layout_alignParentRight="true"
-				        android:layout_marginBottom="22dp"
-				        android:layout_marginRight="23dp"
-				        android:minWidth="120px"
-				        android:text="OK"
-				        android:textSize="50px" />
+        <ImageView
+		    android:id="@+id/imageView1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:layout_alignParentLeft="true"
+		    android:layout_centerVertical="true"
+		    android:layout_centerHorizontal="true"
+		    android:layout_toLeftOf="@+id/imageView3"
+		    android:src="@drawable/ka" />
+                
+        <ImageView
+            android:id="@+id/imageView3"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/green_circle" />
 
-	                <SeekBar
-	                    android:id="@+id/seekBar1"
-	                    android:layout_width="match_parent"
-	                    android:layout_height="wrap_content"
-	                    android:gravity="center_horizontal"
-	                    android:layout_centerVertical="true"
-	                    android:layout_alignParentLeft="true"
-	                    android:paddingLeft="@dimen/activity_horizontal_margin" />
+	    <SeekBar
+	        android:id="@+id/seekBar1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_toRightOf="@+id/imageView3"/>
 
-	                <TextView
-	                    android:id="@+id/textView2"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_below="@+id/seekBar1"
-	                    android:layout_centerHorizontal="true"
-	                    android:layout_marginTop="30dp"
-	                    android:text="TEXT"
-	                    android:textAppearance="?android:attr/textAppearanceLarge"
-	                    android:textSize="60px" />
+	    <TextView
+	        android:id="@+id/textView2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/seekBar1"
+	        android:layout_toRightOf="@+id/imageView3"
+	        android:layout_marginLeft="70px"
+	        android:layout_marginTop="30dp"
+	        android:text="TEXT"
+	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        android:textSize="60px" />
 
-	                <TextView
-	                    android:id="@+id/textView1"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_above="@+id/seekBar1"
-	                    android:layout_centerHorizontal="true"
-	                    android:layout_marginBottom="80dp"
-	                    android:textSize="35px"
-	                    android:text="@string/setProbability"
-	                    android:textAppearance="?android:attr/textAppearanceLarge" />
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_above="@+id/seekBar1"
+	        android:layout_centerHorizontal="true"
+	        android:layout_toRightOf="@+id/imageView3"
+	        android:layout_marginBottom="80dp"
+	        android:textSize="35px"
+	        android:text="@string/setProbability"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            </RelativeLayout>
+    </RelativeLayout>
 
-        </LinearLayout>
-        
-     <RelativeLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/textView3"
-        android:visibility="invisible"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:textSize="35px"
-        android:text="@string/tekst9"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+	    <TextView
+	        android:id="@+id/textView3"
+	        android:visibility="invisible"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_centerInParent="true"
+	        android:gravity="center"
+	        android:textSize="35px"
+	        android:text="@string/tekst9"
+	        android:textAppearance="?android:attr/textAppearanceLarge"/>
+	    
+	    <Button
+	        android:id="@+id/button_ok"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_marginBottom="22dp"
+	        android:layout_marginRight="23dp"
+	        android:minWidth="120px"
+	        android:text="OK"
+	        android:textSize="50px" />
+
     </RelativeLayout>
 
 </RelativeLayout>
