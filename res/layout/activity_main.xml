@@ -11,8 +11,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:orientation="vertical" >
@@ -25,12 +25,12 @@
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:text="@string/caption_activity_main"
-            android:textSize="25sp" />
+            android:textSize="25px" />
 
         <RelativeLayout
             android:id="@+id/RelativeLayout1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:columnCount="3"
             android:orientation="horizontal" >
 
@@ -38,9 +38,10 @@
                 android:id="@+id/imageView1"
                 android:visibility="invisible"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_margin="10dp"
+                android:clickable="true"
                 android:src="@drawable/chi" />
 
             <ImageView
@@ -55,7 +56,7 @@
                 android:id="@+id/imageView2"
                 android:visibility="invisible"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_margin="10dp"
                 android:clickable="true"
@@ -69,7 +70,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="40dp"
-                android:textSize="50sp" />
+                android:textSize="70px" />
 
         </RelativeLayout>
     </LinearLayout>
@@ -78,18 +79,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
         
-        <Button
+    <Button
         android:id="@+id/button_ok"
-        android:visibility="invisible"
+       	android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="22dp"
         android:layout_marginRight="23dp"
-        android:minWidth="80dp"
+        android:minWidth="120px"
         android:text="OK"
-        android:textSize="30sp" />
+        android:textSize="50px" />
 
     <TextView
         android:id="@+id/textView3"
@@ -99,7 +100,7 @@
         android:layout_centerInParent="true"
         android:layout_marginRight="29dp"
         android:gravity="center"
-        android:textSize="32px"
+        android:textSize="35px"
         android:text="@string/tekst1"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
     </RelativeLayout>

@@ -16,7 +16,7 @@
             <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:src="@drawable/e" />
 
@@ -24,17 +24,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" >
                 
-	                <Button
-	                android:id="@+id/button_ok"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_alignParentBottom="true"
-	                android:layout_alignParentRight="true"
-	                android:layout_marginBottom="22dp"
-	                android:layout_marginRight="23dp"
-	                android:minWidth="80dp"
-	                android:text="OK"
-	                android:textSize="30sp" />
+                    <Button
+				        android:id="@+id/button_ok"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_alignParentBottom="true"
+				        android:layout_alignParentRight="true"
+				        android:layout_marginBottom="22dp"
+				        android:layout_marginRight="23dp"
+				        android:minWidth="120px"
+				        android:text="OK"
+				        android:textSize="50px" />
 
 	                <SeekBar
 	                    android:id="@+id/seekBar1"
@@ -51,10 +51,10 @@
 	                    android:layout_height="wrap_content"
 	                    android:layout_below="@+id/seekBar1"
 	                    android:layout_centerHorizontal="true"
-	                    android:layout_marginTop="27dp"
+	                    android:layout_marginTop="30dp"
 	                    android:text="TEXT"
 	                    android:textAppearance="?android:attr/textAppearanceLarge"
-	                    android:textSize="40sp" />
+	                    android:textSize="60px" />
 
 	                <TextView
 	                    android:id="@+id/textView1"
@@ -62,7 +62,8 @@
 	                    android:layout_height="wrap_content"
 	                    android:layout_above="@+id/seekBar1"
 	                    android:layout_centerHorizontal="true"
-	                    android:layout_marginBottom="29dp"
+	                    android:layout_marginBottom="80dp"
+	                    android:textSize="35px"
 	                    android:text="@string/setProbability"
 	                    android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -81,7 +82,7 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:textSize="32px"
+        android:textSize="35px"
         android:text="@string/tekst9"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
     </RelativeLayout>

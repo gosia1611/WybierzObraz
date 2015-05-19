@@ -139,10 +139,10 @@ public class MainActivity extends Activity {
 	private void showResult(boolean isGoodAnswer, Choice choice) {
 		if (choice == Choice.NOTHING) {
 			resultText.setText("NIE WYBRANO");
-			resultText.setTextColor(Color.BLUE);
+			resultText.setTextColor(Color.RED);
 		} else if (isGoodAnswer == true) {
 			resultText.setText("DOBRZE");
-			resultText.setTextColor(Color.GREEN);
+			resultText.setTextColor(Color.BLUE);
 		} else if (isGoodAnswer == false) {
 			resultText.setText("èLE");
 			resultText.setTextColor(Color.RED);

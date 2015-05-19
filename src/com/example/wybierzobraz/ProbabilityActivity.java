@@ -45,6 +45,7 @@ public class ProbabilityActivity extends Activity {
 
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
 				progressChanged = progress;
+				probabilityValue.setText(Integer.toString(progress));
 			}
 	
 			public void onStartTrackingTouch(SeekBar seekBar) {
